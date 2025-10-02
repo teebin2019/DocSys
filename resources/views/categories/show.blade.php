@@ -1,24 +1,30 @@
 @extends('layout.main')
 
 @section('content')
-    <h4 class="mb-3 text-center">{{ $title ?? 'เอกสาร' }}</h4>
+    <h4 class="mb-3 text-center">{{ $title ?? 'แสดงข้อมูลหมวดหมู่เอกสาร' }}</h4>
+
+    <div class="mb-3">
+        <form action="{{ route('categories_upload', ['id' => $category->id]) }}" method="post">
+            @csrf
+            <div id="dropzone" class="dropzone dz-message needsclick"></div>
+            {{-- <button type="button" id="uploadFile" class="btn btn-success mt-1">Upload Images</button> --}}
+        </form>
+    </div>
 
     <div class="row mb-2">
         <div class="col-6">
-            <a href="{{ route('documents_create') }}" class="btn btn-sm btn-primary">
-                <i class="bi bi-plus-circle"></i>
-                เพิ่ม<span class="d-none d-md-inline">ข้อมูล</span>
-            </a>
         </div>
         <div class="col-6">
-            <form action="{{ route('documents') }}" class="d-inline" method="get" id="search-form">
+            <form action="{{ route('categories_show', ['id' => $category->id, 'q' => $q]) }}" class="d-inline" method="get"
+                id="search-form">
                 <div class="input-group input-group-sm">
                     <input type="text" name="q" class="form-control form-control-sm border-secondary-subtle"
                         placeholder="ใส่คำค้น" value="{{ $q }}">
                     <button class="btn btn-outline-secondary border-secondary-subtle" type="submit" id="search">
                         <i class="bi bi-search"></i>
                     </button>
-                    <a href="{{ route('documents') }}" class="btn btn-outline-secondary border-secondary-subtle">
+                    <a href="{{ route('categories_show', ['id' => $category->id]) }}"
+                        class="btn btn-outline-secondary border-secondary-subtle">
                         <i class="bi bi-arrow-clockwise"></i>
                     </a>
                 </div>
@@ -41,13 +47,15 @@
                         <td class="text-center">
                             {{ ($documents->currentPage() - 1) * $documents->perPage() + $loop->iteration }}
                         </td>
-                        <td>{{ $document->title }}</td>
                         <td>
+                            <a href="{{ $document->url }}" target="_blank">{{ $document->title }}</a>
+                        </td>
+                        <td class="text-center">
                             <a href="{{ route('documents_edit', ['id' => $document->id]) }}" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil-square"></i>
                                 แก้ไข
                             </a>
-                            <form action="{{ route('documents_delete', ['id' => $document->id]) }}" method="POST"
+                            <form action="{{ route('categories_document_delete', ['id' => $document->id]) }}" method="POST"
                                 class="d-inline">
                                 @csrf
                                 <button type="submit" class="btn btn-sm btn-danger"
@@ -73,3 +81,40 @@
         {{ $documents->withQueryString()->links() }}
     </div>
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('vendor/dropzone/dropzone.min.css') }}">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('vendor/dropzone/dropzone.min.js') }}"></script>
+    <script>
+        Dropzone.autoDiscover = false;
+        var myDropzone = new Dropzone("#dropzone", {
+            url: "{{ route('categories_upload', ['id' => $category->id]) }}",
+            paramName: "file",
+            maxFilesize: 10, // MB
+            timeout: 0,
+            acceptedFiles: ".pdf,.jpg,.jpeg,.png,.gif,.webp,.doc,.docx,.xls,.xlsx,.ppt,.pptx",
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').getAttribute('value')
+            },
+            init: function() {
+                // this.on("sending", function(file, xhr, formData) {
+                //     formData.append("_token", document.getElementById('title').value);
+                // });
+                this.on("success", function(file, response) {
+                    setTimeout(() => window.location.reload(), 500);
+                });
+                this.on("error", function(file, err) {
+                    console.error(err);
+                    alert('อัปโหลดไม่สำเร็จ: ' + (err?.message || 'ตรวจรูปแบบไฟล์/ขนาด'));
+                });
+            }
+        });
+
+        // $('#uploadFile').click(function() {
+        //     myDropzone.processQueue();
+        // });
+    </script>
+@endpush

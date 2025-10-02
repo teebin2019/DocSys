@@ -36,7 +36,11 @@ Route::controller(CategoryController::class)->middleware(AdminActive::class)->gr
     Route::post('/categories/store', 'store')->name('categories_store');
     Route::get('/categories/edit-{id}', 'edit')->name('categories_edit');
     Route::post('/categories/update-{id}', 'update')->name('categories_update');
+    Route::get('/categories/show-{id}', 'show')->name('categories_show');
     Route::post('/categories/delete-{id}', 'delete')->name('categories_delete');
+
+    Route::post('/categories/upload/{id}', 'upload')->name('categories_upload');
+    Route::post('/categories/document_delete/{id}', 'document_delete')->name('categories_document_delete');
 });
 
 Route::controller(DocumentController::class)->middleware(AdminActive::class)->group(function () {

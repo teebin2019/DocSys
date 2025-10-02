@@ -85,8 +85,6 @@
     </div>
 
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('vendor/highcharts/code/highcharts.js') }}"></script>
-    <script src="{{ asset('vendor/highcharts/code/modules/accessibility.js') }}"></script>
     <script src="{{ asset('js/script.js') }}"></script>
     @stack('script_src')
     @stack('script_include')

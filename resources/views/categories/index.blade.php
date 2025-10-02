@@ -40,7 +40,9 @@
                         <td class="text-center">
                             {{ ($categories->currentPage() - 1) * $categories->perPage() + $loop->iteration }}
                         </td>
-                        <td>{{ $category->name }}</td>
+                        <td>
+                            <a href="{{ route('categories_show', $category->id) }}">{{ $category->name }}</a>
+                        </td>
                         <td>
                             <a href="{{ route('categories_edit', ['id' => $category->id]) }}"
                                 class="btn btn-sm btn-warning">
@@ -59,6 +61,12 @@
                         </td>
                     </tr>
                 @endforeach
+
+                @if (!$categories->total())
+                    <tr>
+                        <td colspan="3" class="text-center">ไม่พบข้อมูล</td>
+                    </tr>
+                @endif
             </tbody>
         </table>
     </div>

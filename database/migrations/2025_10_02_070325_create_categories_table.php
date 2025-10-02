@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');           // ชื่อหมวดหมู่ เช่น "ประกาศ", "คำสั่ง"
-            $table->string('slug')->unique(); // สำหรับอ้างอิงใน URL
+            $table->string('name')->index();           // ชื่อหมวดหมู่ เช่น "ประกาศ", "คำสั่ง"
+            $table->string('slug')->index()->unique(); // สำหรับอ้างอิงใน URL
             $table->text('description')->nullable();
             $table->integer('status')->default(1); // 1=active, 0=inactive
             $table->timestamps();
