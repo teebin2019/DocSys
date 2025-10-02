@@ -1,0 +1,9 @@
+.mce-content-body {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+.mce-content-body p:first-child {
+    margin-top: 0;
+}
