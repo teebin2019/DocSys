@@ -209,6 +209,7 @@ class CategoryController extends Controller
         $document->title        = $request->filled('title') ? $request->title : $filename;
         $document->description  = $request->description;
         $document->category_id  = $category->id;   // จะตรงกับ $category->id
+        $document->uuid = Str::uuid();
         $document->file_path    = $path;                          // public/documents/...
         $document->file_type    = $type;
         $document->file_size    = $file->getSize();

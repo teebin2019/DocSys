@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+            $table->uuid('uuid')->unique();
             $table->string('title')->index();
             $table->text('description')->nullable();
             $table->string('file_path');        // path เก็บไฟล์
-            $table->string('file_type');        // pdf, image, docx, other
+            $table->string('file_type')->index();        // pdf, image, docx, other
             $table->bigInteger('file_size');    // ขนาดไฟล์ (byte)
             $table->string('tag')->nullable();
             $table->unsignedBigInteger('uploaded_by');

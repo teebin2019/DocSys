@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 Route::controller(IndexController::class)->group(function () {
     Route::get('/', 'public')->name('public');
     Route::get('/index', 'index')->middleware(UserActive::class)->name('index');
+    Route::get('/file/{uuid}', 'download_count')->name('download_count');
 });
 
 Route::controller(AuthController::class)->group(function () {

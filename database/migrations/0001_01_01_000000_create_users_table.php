@@ -22,7 +22,7 @@ return new class extends Migration
             $table->boolean('_2fa')->default(false);
             $table->string('_2fa_secret')->nullable();
             $table->integer('status')->default(1);
-            $table->timestamp('last_login')->after('status')->nullable();
+            $table->timestamp('last_login')->nullable();
             $table->timestamps();
         });
 

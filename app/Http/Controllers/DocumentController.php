@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Document;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class DocumentController extends Controller
 {
@@ -75,6 +76,7 @@ class DocumentController extends Controller
         $document->title = $request->title ?? $file->getClientOriginalName();
         $document->description = $request->description;
         $document->category_id = $request->category_id;
+        $document->uuid = Str::uuid();
         $document->file_path = $path;
         $document->file_type = $type;
         $document->file_size = $file->getSize();
