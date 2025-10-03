@@ -26,6 +26,12 @@
                         value="{{ old('title', $document->title) }}">
                 </div>
                 <div class="mb-3">
+                    <label for="description" class="form-label">
+                        รายละเอียด
+                    </label>
+                    <textarea name="description" class="form-control" id="description" rows="3">{{ old('description', $document->description) }}</textarea>
+                </div>
+                <div class="mb-3">
                     <label for="category_id" class="form-label">
                         หมวดหมู่ <span class="text-danger">*</span>
                     </label>

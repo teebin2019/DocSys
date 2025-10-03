@@ -24,6 +24,12 @@
                         name="title" placeholder="ปล่อยว่างหากต้องการใช้ชื่อไฟล์" value="{{ old('title') }}">
                 </div>
                 <div class="mb-3">
+                    <label for="description" class="form-label">
+                        รายละเอียด
+                    </label>
+                    <textarea name="description" class="form-control" id="description" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
                     <label for="category_id" class="form-label">
                         หมวดหมู่ <span class="text-danger">*</span>
                     </label>

@@ -7,7 +7,6 @@
         <form action="{{ route('categories_upload', ['id' => $category->id]) }}" method="post">
             @csrf
             <div id="dropzone" class="dropzone dz-message needsclick"></div>
-            {{-- <button type="button" id="uploadFile" class="btn btn-success mt-1">Upload Images</button> --}}
         </form>
     </div>
 
@@ -117,4 +116,12 @@
         //     myDropzone.processQueue();
         // });
     </script>
+@endpush
+
+@push('styles')
+    <style>
+        #dropzone {
+            border: 2px dashed #ccc;
+        }
+    </style>
 @endpush

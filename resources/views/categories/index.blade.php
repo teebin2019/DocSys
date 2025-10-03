@@ -43,7 +43,7 @@
                         <td>
                             <a href="{{ route('categories_show', $category->id) }}">{{ $category->name }}</a>
                         </td>
-                        <td>
+                        <td class="text-center">
                             <a href="{{ route('categories_edit', ['id' => $category->id]) }}"
                                 class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil-square"></i>

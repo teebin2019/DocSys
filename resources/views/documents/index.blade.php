@@ -41,8 +41,12 @@
                         <td class="text-center">
                             {{ ($documents->currentPage() - 1) * $documents->perPage() + $loop->iteration }}
                         </td>
-                        <td>{{ $document->title }}</td>
                         <td>
+                            <a href="{{ $document->url }}" target="_blank">
+                                {{ $document->title }}
+                            </a>
+                        </td>
+                        <td class="text-center">
                             <a href="{{ route('documents_edit', ['id' => $document->id]) }}" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil-square"></i>
                                 แก้ไข

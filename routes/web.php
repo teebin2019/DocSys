@@ -9,8 +9,10 @@ use App\Http\Middleware\AdminActive;
 use App\Http\Middleware\UserActive;
 use Illuminate\Support\Facades\Route;
 
-Route::controller(IndexController::class)->middleware(UserActive::class)->group(function () {
-    Route::get('/index', 'index')->name('index');
+
+Route::controller(IndexController::class)->group(function () {
+    Route::get('/', 'public')->name('public');
+    Route::get('/index', 'index')->middleware(UserActive::class)->name('index');
 });
 
 Route::controller(AuthController::class)->group(function () {
