@@ -32,6 +32,7 @@
                     <th class="text-center">ลําดับ</th>
                     <th>ชื่อ-นามสกุล</th>
                     <th>อีเมล</th>
+                    <th>รหัสพนักงาน</th>
                     <th class="text-center" width="15%">จัดการ</th>
                 </tr>
             </thead>
@@ -41,6 +42,7 @@
                         <td class="text-center">{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
+                        <td>{{ $user->officer_id }}</td>
                         <td class="text-center" nowrap>
                             <a href="{{ route('user_edit', ['id' => $user->id]) }}" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil-square"></i> แก้ไข
@@ -62,7 +64,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-center">ไม่พบข้อมูล</td>
+                        <td colspan="5" class="text-center">ไม่พบข้อมูล</td>
                     </tr>
                 @endforelse
             </tbody>

@@ -8,6 +8,7 @@
     <meta name="robots" content="noindex">
     <title>{{ config('app.name') }}</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css?v5') }}">
+    <link rel="stylesheet" href="{{ asset('css/font-face.css?v5') }}">
     <style>
         body {
             background: radial-gradient(rgb(210, 241, 223), rgb(211, 215, 250), rgb(186, 216, 244)) 0% 0%/400% 400% !important;
@@ -37,21 +38,21 @@
                     <div class="card border-0 shadow-sm mb-4 rounded-4">
                         <div class="card-body p-4 pb-5">
                             <h4 class="text-center">ระบบยืนยันตัวตน</h4>
-                            <p class="text-center">กรอกอีเมลและรหัสผ่านที่ถูกต้อง</p>
+                            <p class="text-center">กรอกรหัสพนักงานและรหัสผ่านที่ถูกต้อง</p>
                             <form action="{{ route('login_store') }}" method="post">
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">
-                                        Email <span class="text-danger">*</span>
+                                    <label for="officer_id" class="form-label">
+                                        รหัสพนักงาน <span class="text-danger">*</span>
                                     </label>
-                                    <input type="email" class="form-control" name="email" id="email" autofocus required>
-                                    @if ($errors->has('email'))
-                                        <div class="text-danger small mt-2">{{ $errors->first('email') }}</div>
+                                    <input type="text" class="form-control" name="officer_id" id="officer_id" autofocus required>
+                                    @if ($errors->has('officer_id'))
+                                        <div class="text-danger small mt-2">{{ $errors->first('officer_id') }}</div>
                                     @endif
                                 </div>
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">
-                                        Password <span class="text-danger">*</span>
+                                    <label for="password" class="form-label">
+                                        รหัสผ่าน <span class="text-danger">*</span>
                                     </label>
                                     <input type="password" class="form-control" name="password" id="password" required>
                                 </div>

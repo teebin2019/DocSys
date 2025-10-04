@@ -86,7 +86,7 @@ class DocumentController extends Controller
         $document->uploaded_by = auth()->id();
         $document->save();
 
-        return redirect()->route('documents')->with('success', 'เพิ่มข้อมูลไฟล์เอกสารเรียบร้อยแล้ว');
+        return redirect()->route('documents')->with('toast_success', 'เพิ่มข้อมูลไฟล์เอกสารเรียบร้อยแล้ว');
     }
 
     public function edit($id)
@@ -160,6 +160,6 @@ class DocumentController extends Controller
         }
         $document->delete();
 
-        return redirect()->route('documents')->with('success', 'ลบข้อมูลไฟล์เอกสารเรียบร้อยแล้ว');
+        return redirect()->route('documents')->with('toast_success', 'ลบข้อมูลไฟล์เอกสารเรียบร้อยแล้ว');
     }
 }

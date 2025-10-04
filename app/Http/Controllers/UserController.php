@@ -20,7 +20,8 @@ class UserController extends Controller
             ->where(function ($query) use ($q) {
                 if ($q) {
                     $query->where('name', 'like', '%' . $q . '%')
-                        ->orWhere('email', 'like', '%' . $q . '%');
+                        ->orWhere('email', 'like', '%' . $q . '%')
+                        ->orWhere('oficer_id', 'like', '%' . $q . '%');
                 }
             })->paginate(20)
             ->withQueryString();
@@ -45,6 +46,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
+            'officer_id' => 'required|string|max:255',
             'password' => 'required|confirmed|min:8',
             'password_confirmation' => 'required'
         ], [
@@ -53,6 +55,7 @@ class UserController extends Controller
             'email.required' => 'ระบุอีเมลที่ใช้ได้จริง',
             'email.email' => 'ระบุอีเมลให้ถูกต้อง',
             'email.unique' => 'อีเมลนี้มีในระบบอยู่แล้ว',
+            'officer_id.required' => 'ระบุรหัสพนักงาน',
             'password.required' => 'ระบุรหัสผ่านที่ปลอดภัย',
             'password.confirmed' => 'ยืนยันรหัสผ่านให้ถูกต้องตรงกัน',
             'password.min' => 'รหัสผ่านต้องมีความยาวไม่น้อยกว่า 8 ตัวอักษร',
@@ -63,6 +66,7 @@ class UserController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->officer_id = $request->officer_id;
         $user->role = $request->role;
         $user->password = bcrypt($request->password);
         $user->_2fa_secret = $google2fa->generateSecretKey();
@@ -93,6 +97,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $id,
+            'officer_id' => 'required|string|max:255',
             'password' => 'nullable|confirmed|min:8'
         ], [
             'name.required' => 'ระบุชื่อ - สกุลที่ถูกต้อง',
@@ -100,6 +105,7 @@ class UserController extends Controller
             'email.required' => 'ระบุอีเมลที่ใช้ได้จริง',
             'email.email' => 'ระบุอีเมลให้ถูกต้อง',
             'email.unique' => 'อีเมลนี้มีในระบบอยู่แล้ว',
+            'officer_id.required' => 'ระบุรหัสพนักงาน',
             'password.confirmed' => 'ยืนยันรหัสผ่านให้ถูกต้องตรงกัน',
             'password.min' => 'รหัสผ่านต้องมีความยาวไม่น้อยกว่า 8 ตัวอักษร',
             'password_confirmation.required' => 'ยืนยันรหัสผ่านจำเป็นต้องระบุ',
@@ -112,7 +118,8 @@ class UserController extends Controller
 
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->level = $request->level;
+        $user->officer_id = $request->officer_id;
+        $user->role = $request->role;
         if ($request->password) {
             $user->password = bcrypt($request->password);
         }

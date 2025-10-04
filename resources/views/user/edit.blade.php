@@ -22,7 +22,13 @@
                     <input type="email" class="form-control" name="email" id="email" placeholder="ใส่อีเมล"
                         value="{{ old('email') ?? $user->email }}" required>
                 </div>
-
+                <div class="mb-3">
+                    <label for="officer_id" class="form-label">
+                        รหัสพนักงาน <span class="text-danger">*</span>
+                    </label>
+                    <input type="text" class="form-control" name="officer_id" id="officer_id"
+                        value="{{ old('officer_id') ?? $user->officer_id }}" required>
+                </div>
                 <div class="mb-0">
                     <a class="btn btn-link text-decoration-none p-0" data-bs-toggle="collapse" href="#collapse_pwd"
                         role="button" aria-expanded="false" aria-controls="collapse_pwd">

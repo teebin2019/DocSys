@@ -8,6 +8,7 @@
     <meta name="robots" content="noindex">
     <title>{{ config('app.name') }}</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css?v5') }}">
+    <link rel="stylesheet" href="{{ asset('css/font-face.css?v5') }}">
     <style>
         body {
             background: radial-gradient(rgb(210, 241, 223), rgb(211, 215, 250), rgb(186, 216, 244)) 0% 0%/400% 400% !important;
