@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Department;
 use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -40,8 +41,9 @@ class DocumentController extends Controller
         ];
 
         $categories = Category::where('status', 1)->orderBy('created_at', 'asc')->get();
+        $departments = Department::where('status', 1)->orderBy('order_by', 'asc')->get();
 
-        return view('documents.create', compact('title', 'breadcrumbs', 'categories'));
+        return view('documents.create', compact('title', 'breadcrumbs', 'categories', 'departments'));
     }
 
     public function store(Request $request)
@@ -76,6 +78,7 @@ class DocumentController extends Controller
         $document->title = $request->title ?? $file->getClientOriginalName();
         $document->description = $request->description;
         $document->category_id = $request->category_id;
+        $document->department_id = $request->department_id;
         $document->uuid = Str::uuid();
         $document->file_path = $path;
         $document->file_type = $type;
@@ -101,8 +104,9 @@ class DocumentController extends Controller
         ];
 
         $categories = Category::where('status', 1)->orderBy('created_at', 'asc')->get();
+        $departments = Department::where('status', 1)->orderBy('order_by', 'asc')->get();
 
-        return view('documents.edit', compact('document', 'title', 'breadcrumbs', 'categories'));
+        return view('documents.edit', compact('document', 'title', 'breadcrumbs', 'categories', 'departments'));
     }
 
     public function update(Request $request, $id)
@@ -142,6 +146,7 @@ class DocumentController extends Controller
         $document->title = $request->title ?? $file->getClientOriginalName();
         $document->description = $request->description;
         $document->category_id = $request->category_id;
+        $document->department_id = $request->department_id;
         $document->update();
 
         return redirect()->route('categories_show', $document->category_id)->with('toast_success', 'แก้ไขข้อมูลไฟล์เอกสารเรียบร้อยแล้ว');

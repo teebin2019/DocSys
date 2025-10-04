@@ -12,6 +12,11 @@ class Document extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
     public function getUrlAttribute()
     {
         return route('download_count', $this->uuid);

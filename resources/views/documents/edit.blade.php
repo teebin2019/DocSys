@@ -37,11 +37,26 @@
                     </label>
                     <select class="form-select @error('category_id') is-invalid @enderror" id="category_id"
                         name="category_id" required>
-                        <option value="" disabled>-- เลือกหมวดหมู่ --</option>
+                        <option value="">-- เลือกหมวดหมู่ --</option>
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}"
                                 {{ old('category_id', $document->category_id) == $category->id ? 'selected' : '' }}>
                                 {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="department_id" class="form-label">
+                        หน่วยงาน/แผนก
+                    </label>
+                    <select class="form-select @error('department_id') is-invalid @enderror" id="department_id"
+                        name="department_id">
+                        <option value="">-- เลือกหน่วยงาน/แผนก --</option>
+                        @foreach ($departments as $department)
+                            <option value="{{ $department->id }}"
+                                {{ old('department_id', $document->department_id) == $department->id ? 'selected' : '' }}>
+                                {{ $department->name }}
                             </option>
                         @endforeach
                     </select>

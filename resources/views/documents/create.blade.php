@@ -27,7 +27,7 @@
                     <label for="description" class="form-label">
                         รายละเอียด
                     </label>
-                    <textarea name="description" class="form-control" id="description" rows="3"></textarea>
+                    <textarea name="description" class="form-control" id="description" rows="3">{{ old('description') }}</textarea>
                 </div>
                 <div class="mb-3">
                     <label for="category_id" class="form-label">
@@ -39,6 +39,21 @@
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
                                 {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="department_id" class="form-label">
+                        หน่วยงาน/แผนกที่เกี่ยวข้อง
+                    </label>
+                    <select class="form-select @error('department_id') is-invalid @enderror" id="department_id"
+                        name="department_id">
+                        <option value="">-- เลือกหน่วยงาน/แผนก --</option>
+                        @foreach ($departments as $department)
+                            <option value="{{ $department->id }}"
+                                {{ old('department_id') == $department->id ? 'selected' : '' }}>
+                                {{ $department->name }}
                             </option>
                         @endforeach
                     </select>

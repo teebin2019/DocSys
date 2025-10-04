@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\UserController;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(IndexController::class)->group(function () {
     Route::get('/', 'public')->name('public');
+    Route::get('/search', 'search')->name('search');
     Route::get('/index', 'index')->middleware(UserActive::class)->name('index');
     Route::get('/file/{uuid}', 'download_count')->name('download_count');
 });
@@ -53,4 +55,13 @@ Route::controller(DocumentController::class)->middleware(AdminActive::class)->gr
     Route::get('/documents/edit-{id}', 'edit')->name('documents_edit');
     Route::post('/documents/update-{id}', 'update')->name('documents_update');
     Route::post('/documents/delete-{id}', 'delete')->name('documents_delete');
+});
+
+Route::controller(DepartmentController::class)->middleware(AdminActive::class)->group(function () {
+    Route::get('/departments', 'index')->name('departments');
+    Route::get('/departments/create', 'create')->name('departments_create');
+    Route::post('/departments/store', 'store')->name('departments_store');
+    Route::get('/departments/edit-{id}', 'edit')->name('departments_edit');
+    Route::post('/departments/update-{id}', 'update')->name('departments_update');
+    Route::post('/departments/delete-{id}', 'delete')->name('departments_delete');
 });

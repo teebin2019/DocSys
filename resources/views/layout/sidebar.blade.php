@@ -40,6 +40,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('departments') }}"
+                            class="link-body-emphasis d-flex text-decoration-none rounded{{ Request::is('departments*') ? ' active' : '' }}">
+                            <i class="bi bi-building pe-2"></i> หน่วยงาน/แผนก
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('user') }}"
                             class="link-body-emphasis d-flex text-decoration-none rounded{{ Request::is('user*') ? ' active' : '' }}">
                             <i class="bi bi-people pe-2"></i> ข้อมูลผู้ใช้ระบบ

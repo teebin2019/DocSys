@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Category;
+use App\Models\Department;
 use App\Models\Document;
 
 class CategoryController extends Controller
@@ -138,16 +139,23 @@ class CategoryController extends Controller
             ['link' => '', 'name' => $title],
         ];
 
-        $q = trim($request->query('q', ''));
+        $q = $request->query('q', '');
+        $department = $request->query('department', '');
+
         $documents = Document::where('category_id', $id)
             ->when($q !== '', function ($builder) use ($q) {
                 $builder->where('title', 'like', "%{$q}%")
                     ->orWhere('description', 'like', "%{$q}%");
             })
+            ->when($department !== '', function ($builder) use ($department) {
+                $builder->where('department_id', $department);
+            })
             ->orderByDesc('created_at')
             ->paginate(20);
 
-        return view('categories.show', compact('category', 'title', 'breadcrumbs', 'documents', 'q'));
+        $departments = Department::where('status', 1)->orderBy('order_by', 'asc')->get();
+
+        return view('categories.show', compact('category', 'title', 'breadcrumbs', 'documents', 'q', 'departments', 'department'));
     }
 
     /**
@@ -184,15 +192,11 @@ class CategoryController extends Controller
             abort(404);
         }
 
+        $department_id = $request->query('department', null);
         $file = $request->file('file');
-
-        // เก็บไฟล์ลง public/documents (ตามที่กำหนด)
         $path = $file->store('documents', 'public');
-
-        // ใช้ extension จากชื่อไฟล์เดิม (ตามสเปคที่คุณให้มา)
         $extension = strtolower($file->getClientOriginalExtension());
 
-        // map ประเภทไฟล์ ให้ตรงกับ logic ในคำสั่งของคุณ
         $type = match ($extension) {
             'pdf' => 'pdf',
             'jpg', 'jpeg', 'png', 'gif', 'webp' => 'image',
@@ -209,6 +213,7 @@ class CategoryController extends Controller
         $document->title        = $request->filled('title') ? $request->title : $filename;
         $document->description  = $request->description;
         $document->category_id  = $category->id;   // จะตรงกับ $category->id
+        $document->department_id = $department_id;
         $document->uuid = Str::uuid();
         $document->file_path    = $path;                          // public/documents/...
         $document->file_type    = $type;
@@ -216,7 +221,6 @@ class CategoryController extends Controller
         $document->uploaded_by  = auth()->id();
         $document->save();
 
-        // ตอบกลับให้ Dropzone
         return response()->json([
             'ok'       => true,
             'message'  => 'อัปโหลดสำเร็จ',

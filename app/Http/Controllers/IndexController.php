@@ -3,12 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Department;
 use App\Models\Document;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
     public function public(Request $request)
+    {
+        $category = $request->query('category', 1);
+        $categories = Category::where('status', 1)->orderBy('created_at', 'asc')->get();
+        $departments = Department::query()
+            ->whereHas('documents', function ($q) use ($category) {
+                $q->where('status', 1)->where('category_id', $category);
+            })
+            ->orderBy('name', 'asc')
+            ->get();
+
+        return view('public', compact('categories', 'category', 'departments'));
+    }
+
+    public function search(Request $request)
     {
         $q = $request->query('q', '');
         $category = $request->query('category', '');
@@ -31,7 +46,9 @@ class IndexController extends Controller
         $categories = Category::where('status', 1)->orderBy('created_at', 'asc')->get();
         $file_types = ['pdf', 'image', 'docx', 'xlsx', 'pptx', 'txt', 'archive', 'other'];
 
-        return view('public', compact('documents', 'q', 'category', 'type', 'categories', 'file_types'));
+        $search_form = true;
+
+        return view('search', compact('documents', 'q', 'category', 'type', 'categories', 'file_types', 'search_form'));
     }
 
     public function index()
