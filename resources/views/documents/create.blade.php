@@ -5,15 +5,7 @@
 
     <div class="row justify-content-center">
         <div class="col-xl-8 col-xxl-6">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+            @include('layout.form-error', [$errors])
             <form action="{{ route('documents_store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">

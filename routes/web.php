@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\SlideController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminActive;
 use App\Http\Middleware\UserActive;
@@ -64,4 +65,16 @@ Route::controller(DepartmentController::class)->middleware(AdminActive::class)->
     Route::get('/departments/edit-{id}', 'edit')->name('departments_edit');
     Route::post('/departments/update-{id}', 'update')->name('departments_update');
     Route::post('/departments/delete-{id}', 'delete')->name('departments_delete');
+});
+
+Route::controller(SlideController::class)->middleware(AdminActive::class)->group(function () {
+    Route::get('/slides', 'index')->name('slides');
+    Route::get('/slides/create', 'create')->name('slides_create');
+    Route::post('/slides/store', 'store')->name('slides_store');
+    Route::get('/slides/edit-{id}', 'edit')->name('slides_edit');
+    Route::post('/slides/update-{id}', 'update')->name('slides_update');
+    Route::post('/slides/delete-{id}', 'delete')->name('slides_delete');
+
+    Route::get('/slides/order', 'order')->name('slides_order');
+    Route::post('/slides/order/update', 'order_update')->name('slides_order_update');
 });

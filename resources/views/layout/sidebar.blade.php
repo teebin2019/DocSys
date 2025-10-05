@@ -34,6 +34,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('slides') }}"
+                            class="link-body-emphasis d-flex text-decoration-none rounded{{ Request::is('slides*') ? ' active' : '' }}">
+                            <i class="bi bi-image pe-2"></i> ภาพสไลด์
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('categories') }}"
                             class="link-body-emphasis d-flex text-decoration-none rounded{{ Request::is('categories*') ? ' active' : '' }}">
                             <i class="bi bi-archive pe-2"></i> หมวดหมู่เอกสาร

@@ -1,7 +1,7 @@
 <!-- Toolbar -->
 @isset($search_form)
     <section class="py-3">
-        <div class="container container-narrow">
+        <div class="container">
             <form action="{{ route('search') }}" class="row g-2 align-items-center">
                 <div class="col-12 col-md">
                     <label for="q" class="visually-hidden">ค้นหาเอกสาร</label>

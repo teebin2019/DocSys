@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Department;
 use App\Models\Document;
+use App\Models\Slide;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -19,8 +20,9 @@ class IndexController extends Controller
             })
             ->orderBy('name', 'asc')
             ->get();
+        $slides = Slide::where('status', 1)->orderBy('order_by', 'asc')->orderByDesc('created_at')->get();
 
-        return view('public', compact('categories', 'category', 'departments'));
+        return view('public', compact('categories', 'category', 'departments', 'slides'));
     }
 
     public function search(Request $request)

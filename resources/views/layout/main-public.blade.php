@@ -38,36 +38,36 @@
             z-index: 1020;
             backdrop-filter: blur(6px);
             background-color: color-mix(in srgb, var(--bs-body-bg) 85%, transparent);
-            border-bottom: 1px solid var(--bs-border-color);
         }
 
-        #accordionDocSys {
-            --bs-accordion-active-bg: var(--bs-success-bg-subtle);
-            --bs-accordion-active-color: var(--bs-success-text-emphasis);
+        .nav-docs > a.nav-link.active {
+            color: var(--bs-success-text-emphasis) !important;
+            background-color: var(--bs-success-bg-subtle) !important;
+            border-color: var(--bs-success-border-subtle) !important;
         }
 
-        #accordionDocSys .accordion-button {
-            outline: none !important;
+        .accordion-button {
             box-shadow: none !important;
-            --bs-bg-opacity: 1;
+            outline: none !important;
         }
 
-        #accordionDocSys .accordion-button.collapsed {
-            background-color: rgba(var(--bs-tertiary-bg-rgb), var(--bs-bg-opacity)) !important;
+        .accordion-button:not(.collapsed) {
+            background-color: var(--bs-success-bg-subtle) !important;
+            color: var(--bs-success-text-emphasis) !important;
+            font-weight: 600 !important;
         }
 
-        @media (min-width: 992px) {
-            .container-narrow {
-                max-width: 920px;
-            }
+        button.rounded-top-4.accordion-button.collapsed {
+            border-bottom-left-radius: var(--card-radius) !important;
+            border-bottom-right-radius: var(--card-radius) !important;
         }
     </style>
 </head>
 
-<body>
+<body class="bg-body-tertiary">
     <!-- Header -->
-    <nav class="sticky-top-blur">
-        <div class="container container-narrow py-3">
+    <nav class="sticky-top-blur shadow-sm">
+        <div class="container py-3">
             <div class="d-inline-flex position-relative">
                 <div class="d-flex align-items-center gap-3">
                     <img src="{{ asset('images/logo-public.png') }}" width="44" alt="Logo DocSys">
@@ -89,7 +89,7 @@
 
     <!-- List -->
     <main class="pb-5">
-        <div class="container container-narrow">
+        <div class="container">
             @yield('content')
             <div class="text-center text-secondary small mt-3">
                 © 2025 DocSys

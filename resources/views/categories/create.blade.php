@@ -5,6 +5,7 @@
 
     <div class="row justify-content-center">
         <div class="col-xl-8 col-xxl-6">
+            @include('layout.form-error', [$errors])
             <form action="{{ route('categories_store') }}" method="POST">
                 @csrf
                 <div class="mb-3">
